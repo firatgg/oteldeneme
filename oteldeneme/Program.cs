@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using oteldeneme.Data;
+using oteldeneme.Interfaces;
+using oteldeneme.Models;
+using oteldeneme.Repositories;
 
 namespace oteldeneme
 {
@@ -16,6 +19,12 @@ namespace oteldeneme
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<HotelContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("ConnStr")));
+
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddScoped< IHotelRepository, HotelRepository> ();
+            builder.Services.AddScoped<IPaymenRepository, PaymenRepository>();
+            builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
+            builder.Services.AddScoped<IRoomRepository, RoomRepository>();
 
             var app = builder.Build();
 
